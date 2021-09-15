@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
@@ -9,15 +10,22 @@ interface HeaderProps {
 }
 
 export function Header({ tasksCounter }: HeaderProps) {
-  // const tasksCounterText = TODO render 'tarefa' if tasksCounter equals 1, otherwise render 'tarefas'
   
+  const [tasksCounterText, setTasksCounterText] = useState('');
+  useEffect(()=>{
+    if(tasksCounter == 1){
+      setTasksCounterText('tarefa');
+    }else{
+      setTasksCounterText('tarefas');
+    }
+  },[tasksCounter])
   return (
     <View style={styles.container}>
       <Image source={logoImg} />
       
       <View style={styles.tasks}>
         <Text style={styles.tasksCounter}>Você tem </Text>
-        {/* <Text style={styles.tasksCounterBold}>{tasksCounter} {tasksCounterText}</Text> */}
+        { <Text style={styles.tasksCounterBold}>{tasksCounter} {tasksCounterText}</Text> }
       </View>
     </View>
   )
